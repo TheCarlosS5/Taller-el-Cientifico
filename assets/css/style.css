@@ -1,0 +1,558 @@
+:root {
+    --cientifico-yellow: #fbc108;
+    --cientifico-dark-blue: #0d2c4f;
+    --cientifico-light-gray: #f8f9fa;
+    --cientifico-text: #343a40;
+    --cientifico-white: #ffffff;
+}
+
+/* --- Estilos Generales --- */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--cientifico-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--cientifico-dark-blue);
+}
+
+/* --- Barra de Navegación --- */
+.navbar-light .navbar-nav .nav-link {
+    color: var(--cientifico-dark-blue) !important;
+    font-weight: 500;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link.active {
+    color: var(--cientifico-yellow) !important;
+}
+
+.btn-cientifico {
+    background-color: var(--cientifico-yellow);
+    border-color: var(--cientifico-yellow);
+    color: var(--cientifico-dark-blue);
+    font-weight: bold;
+    transition: all 0.3s;
+    padding: 10px 25px;
+}
+
+.btn-cientifico:hover {
+    background-color: #eab407;
+    border-color: #eab407;
+    color: var(--cientifico-dark-blue);
+    transform: translateY(-2px);
+}
+
+/* --- Sección Hero (Principal) --- */
+.hero-section {
+    background-color: var(--cientifico-dark-blue);
+    color: var(--cientifico-white);
+    padding: 80px 0;
+}
+
+.hero-section h1 {
+    color: var(--cientifico-white);
+    font-size: 3.5rem;
+}
+
+.hero-section p.lead {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+.hero-section .lead {
+     font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+.stats-container .stat-item {
+    color: #fff;
+}
+.stats-container .stat-item i {
+    font-size: 2.5rem;
+    color: var(--cientifico-yellow);
+}
+
+.quote-card {
+    background-color: var(--cientifico-white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.quote-card h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--cientifico-dark-blue);
+}
+
+/* --- Sección Sobre Nosotros y Por Qué Elegirnos --- */
+.about-section {
+    background-color: #fff;
+}
+.why-choose-section {
+    background-color: #f8f9fa;
+}
+
+.section-subtitle {
+    font-weight: 700;
+    color: var(--cientifico-yellow);
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.section-title {
+    font-weight: 700;
+    color: var(--cientifico-dark-blue);
+    margin-bottom: 1rem;
+}
+
+.feature-box {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+.feature-box .icon {
+    font-size: 3rem;
+    color: var(--cientifico-yellow);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+/* --- Sección Marcas --- */
+.brands-section {
+    padding: 80px 0;
+    background-color: var(--cientifico-light-gray);
+}
+
+.brand-card {
+    background-color: var(--cientifico-white);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+}
+
+.brand-card img {
+    max-height: 50px;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+/* --- Página de Servicios --- */
+.services-page {
+    background-color: var(--cientifico-dark-blue);
+    padding: 60px 0;
+}
+
+.services-page .display-4, .services-page .lead {
+    color: var(--cientifico-white);
+}
+
+.service-card {
+    background-color: var(--cientifico-white);
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+}
+
+.service-card .icon {
+    font-size: 3rem;
+    color: var(--cientifico-yellow);
+}
+
+.service-card .card-title {
+    font-size: 1.5rem;
+    color: var(--cientifico-dark-blue);
+    margin-top: 15px;
+}
+
+/* --- Página de Sedes/Ubicación --- */
+.sedes-page {
+    background-color: var(--cientifico-light-gray);
+}
+
+.location-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.location-card .info-item i {
+    font-size: 1.5rem;
+    color: var(--cientifico-yellow);
+}
+
+.map-container {
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Página de Contacto --- */
+.contact-page {
+    background-color: var(--cientifico-dark-blue);
+}
+
+.contact-page .display-4, .contact-page .lead {
+    color: var(--cientifico-white);
+}
+
+.contact-info-card {
+    background-color: var(--cientifico-white);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.contact-info-card .info-item i {
+    font-size: 1.5rem;
+    color: var(--cientifico-yellow);
+    margin-top: 5px;
+}
+.contact-info-card .info-item a {
+    text-decoration: none;
+    color: var(--cientifico-text);
+    transition: color 0.3s;
+}
+
+.contact-info-card .info-item a:hover {
+    color: var(--cientifico-yellow);
+}
+
+.contact-form-card {
+    background-color: var(--cientifico-light-gray);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* --- Página de Login y Registro --- */
+.login-page {
+    min-height: 80vh;
+    background-color: var(--cientifico-light-gray);
+}
+
+.login-options-card, .login-form-card {
+    background-color: var(--cientifico-white);
+    border-radius: 15px;
+    border: none;
+}
+.login-logo {
+    max-height: 80px;
+}
+.admin-link {
+    color: var(--cientifico-dark-blue);
+}
+
+
+/* --- Panel de Administración con Sidebar (V2 - Moderno) --- */
+body.admin-page {
+    background-color: #f8f9fa;
+}
+
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: var(--cientifico-dark-blue);
+    color: #fff;
+    position: fixed;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0px 15px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-header .admin-logo {
+    max-height: 50px;
+    margin-bottom: 0.5rem;
+}
+.sidebar-header h5 {
+    color: var(--cientifico-yellow);
+    margin: 0;
+    font-weight: 700;
+}
+.sidebar-sticky {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-top: 1rem;
+}
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 12px 24px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    margin: 4px 0;
+    border-radius: 0 50px 50px 0;
+}
+.sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--cientifico-white);
+    border-left-color: var(--cientifico-yellow);
+}
+.sidebar .nav-link.active {
+    background-color: var(--cientifico-yellow);
+    color: var(--cientifico-dark-blue) !important;
+    font-weight: bold;
+    border-left-color: var(--cientifico-yellow);
+}
+.sidebar .nav-link .bi {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+.sidebar .nav-link:hover .bi, .sidebar .nav-link.active .bi {
+    transform: scale(1.1);
+}
+.sidebar .nav-item-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+.sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.user-info .bi-person-circle {
+    font-size: 2rem;
+    color: var(--cientifico-yellow);
+    margin-right: 15px;
+}
+.user-info .user-name {
+    color: #fff;
+    font-weight: 500;
+}
+.btn-logout {
+    background-color: rgba(251, 193, 8, 0.2);
+    border: 1px solid var(--cientifico-yellow);
+    color: var(--cientifico-yellow);
+}
+.btn-logout:hover {
+    background-color: var(--cientifico-yellow);
+    color: var(--cientifico-dark-blue);
+}
+
+/* --- Main Content (Contenido Principal) --- */
+.main-content {
+    margin-left: 280px;
+    padding: 2.5rem;
+    width: calc(100% - 280px);
+    background-color: #f8f9fa;
+}
+.main-content h1 {
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 0.5rem;
+}
+.main-content p {
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* --- Estilos para las Tarjetas del Admin --- */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    overflow: hidden;
+}
+.card .table {
+    margin-bottom: 0;
+}
+.table th {
+    background-color: #e9ecef;
+    font-weight: 600;
+    color: #495057;
+}
+.table td {
+    vertical-align: middle;
+}
+.table .badge {
+    font-size: 0.85rem;
+    padding: 0.5em 0.7em;
+}
+.form-select-sm {
+    max-width: 150px;
+}
+
+/* --- Estilos para Badges de Estado --- */
+.status-pendiente { background-color: #ffc107 !important; color: #000 !important; }
+.status-contactado { background-color: #0d6efd !important; }
+.status-agendado { background-color: #6f42c1 !important; }
+.status-completado { background-color: #198754 !important; }
+.status-cancelado { background-color: #dc3545 !important; }
+
+/* --- Footer --- */
+.footer-cientifico {
+    background-color: var(--cientifico-dark-blue);
+}
+.footer-cientifico .text-cientifico-yellow {
+    color: var(--cientifico-yellow);
+}
+.footer-cientifico a.text-white:hover {
+    color: var(--cientifico-yellow) !important;
+    text-decoration: underline;
+}
+
+/* ESTILOS PARA EL DASHBOARD */
+
+.form-select-sm {
+    max-width: 150px;
+}
+
+/* --- Dashboard Stats Cards --- */
+.stat-card {
+    border-radius: 15px;
+    padding: 25px;
+    color: var(--cientifico-white);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: none;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card .stat-icon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 4rem;
+    opacity: 0.2;
+}
+
+.stat-card .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+}
+
+.stat-card .stat-label {
+    font-size: 1.1rem;
+    margin: 0;
+    color: #ffffff;
+}
+
+.stat-card a {
+    color: var(--cientifico-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.stat-card a:hover {
+    text-decoration: underline;
+}
+
+.stat-card .card-footer {
+    background-color: rgba(0,0,0,0.15);
+    padding: 8px 25px;
+    margin: 25px -25px -25px -25px; /* Extender hasta los bordes de la tarjeta */
+}
+
+/* Paleta de colores para las tarjetas */
+.bg-metric-1 { background: linear-gradient(135deg, #0d6efd, #0a58ca); } /* Azul para Total Cotizaciones */
+.bg-metric-2 { background: linear-gradient(135deg, #198754, #146c43); } /* Verde para Usuarios */
+.bg-metric-3 { background: linear-gradient(135deg, #ffc107, #d39e00); color: #ffffff !important; } /* Amarillo para Pendientes */
+.bg-metric-3 a { color: #ffffff !important; }
+.bg-metric-4 { background: linear-gradient(135deg, #6f42c1, #59359a); } /* Púrpura para Agendadas */
+
+
+/* --- Estilos para Badges de Estado --- */
+.status-pendiente { background-color: #ffc107 !important; color: #000 !important; }
+
+.form-select-sm {
+    max-width: 150px;
+}
+
+/* --- Dashboard Widgets (Reloj y Datos) --- */
+.clock-widget {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+#analogClock {
+    max-width: 100%;
+    height: auto;
+}
+
+.digital-time {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cientifico-dark-blue);
+    margin-top: 1rem;
+}
+
+.fun-fact-card {
+    background-color: #e9f7ff; /* Un azul muy claro */
+    border: 1px solid #bde0fe;
+    border-radius: 15px;
+}
+
+.fun-fact-card .fun-fact-icon {
+    font-size: 2.5rem;
+    color: #0d6efd; /* Azul brillante */
+    margin-right: 1.5rem;
+    align-self: center;
+}
+
+.fun-fact-card .card-title {
+    color: var(--cientifico-dark-blue);
+}
+
+.fun-fact-card .card-text {
+    color: #495057;
+}
