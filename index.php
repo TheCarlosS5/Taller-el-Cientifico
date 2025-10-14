@@ -65,17 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cotizar'])) {
 }
 
 
-// 2. Obtener todo el contenido editable de la página de inicio
-$sql = "SELECT campo, valor FROM contenido_editable WHERE seccion = 'home'";
-$result = $conn->query($sql);
+// 2. Obtener el contenido editable de la DB
+$sql_home = "SELECT campo, valor FROM contenido_editable WHERE seccion = 'home'";
+$result_home = $conn->query($sql_home);
 $home_content = [];
-while($row = $result->fetch_assoc()) {
+while($row = $result_home->fetch_assoc()) {
     $home_content[$row['campo']] = $row['valor'];
 }
-$conn->close();
 
 $page_title = "Inicio";
 include 'includes/header.php'; 
+$marcas = $conn->query("SELECT * FROM marcas WHERE activo = 1 ORDER BY orden ASC")->fetch_all(MYSQLI_ASSOC);
+$conn->close();
+
 ?>
 
 <!-- Hero Section -->
@@ -166,19 +168,22 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Sección Sobre Nosotros -->
+<!-- Sección "Sobre Nosotros" (ACTUALIZADA) -->
 <section class="about-section py-5">
     <div class="container">
         <div class="row align-items-center g-5">
+            <!-- Columna para la nueva imagen -->
             <div class="col-lg-6">
-                <img src="https://placehold.co/600x400/0d2c4f/fbc108?text=Imagen+del+Taller" class="img-fluid rounded shadow-lg" alt="Interior del Taller El Científico">
+                <img src="<?php echo htmlspecialchars($home_content['about_image_url'] ?? 'https://placehold.co/600x400'); ?>" 
+                     alt="Sobre Taller El Científico" 
+                     class="img-fluid rounded-3 shadow-lg about-section-image">
             </div>
+            <!-- Columna para el texto -->
             <div class="col-lg-6">
-                <h5 class="section-subtitle text-uppercase"><?php echo htmlspecialchars($home_content['about_title'] ?? 'Título'); ?></h5>
-                <h2 class="section-title display-5"><?php echo htmlspecialchars($home_content['about_title'] ?? 'Título Principal'); ?></h2>
-                <div class="lead text-muted">
-                    <?php echo htmlspecialchars_decode($home_content['about_text'] ?? 'Texto descriptivo no encontrado.'); ?>
-                </div>
+                <h6 class="section-subtitle"><?php echo htmlspecialchars($home_content['about_title_tag'] ?? 'CONÓCENOS'); ?></h6>
+                <h2 class="section-title"><?php echo htmlspecialchars($home_content['about_title'] ?? 'La Ciencia Detrás de Cada Reparación'); ?></h2>
+                <div><?php echo !empty($home_content['about_text']) ? htmlspecialchars_decode($home_content['about_text']) : 'Descripción sobre el taller.'; ?></div>
+                <a href="servicios.php" class="btn btn-cientifico mt-4">Ver Nuestros Servicios</a>
             </div>
         </div>
     </div>
@@ -217,16 +222,54 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Sección de Marcas (sin cambios) -->
+<!-- Marcas que atendemos -->
+
 <section class="brands-section">
     <div class="container py-5">
-        <h2 class="text-center mb-5">Marcas que Atendemos</h2>
-        <div class="row g-4 justify-content-center">
-            <div class="col-6 col-md-4 col-lg-2"><div class="brand-card p-3 text-center"><img src="https://placehold.co/100x50?text=Toyota" class="img-fluid" alt="Toyota"></div></div>
-            <div class="col-6 col-md-4 col-lg-2"><div class="brand-card p-3 text-center"><img src="https://placehold.co/100x50?text=Chevrolet" class="img-fluid" alt="Chevrolet"></div></div>
-            <div class="col-6 col-md-4 col-lg-2"><div class="brand-card p-3 text-center"><img src="https://placehold.co/100x50?text=Renault" class="img-fluid" alt="Renault"></div></div>
-            <div class="col-6 col-md-4 col-lg-2"><div class="brand-card p-3 text-center"><img src="https://placehold.co/100x50?text=Mazda" class="img-fluid" alt="Mazda"></div></div>
-            <div class="col-6 col-md-4 col-lg-2"><div class="brand-card p-3 text-center"><img src="https://placehold.co/100x50?text=Kia" class="img-fluid" alt="Kia"></div></div>
+        <div class="text-center mb-5">
+            <h2 class="section-title">Marcas que Atendemos</h2>
+            <p class="lead text-muted col-lg-8 mx-auto">
+                Atendemos una amplia gama de vehículos a gasolina, diésel y turbo. No trabajamos con vehículos de carga pesada.
+            </p>
+        </div>
+
+        <div class="row g-4 justify-content-center align-items-center">
+
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="brand-card p-3 text-center">
+                    <h3>Renault</h3>
+                    <img src="uploads/home/renault.jpg" class="img-fluid" alt="Logo Renault">
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="brand-card p-3 text-center">
+                    <h3>Mazda</h3>
+                    <img src="uploads/home/mazda.png" class="img-fluid" alt="Logo Mazda">
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="brand-card p-3 text-center">
+                    <h3>Chevrolet</h3>
+                    <img src="uploads/home/chevrolet.avif" class="img-fluid" alt="Logo Chevrolet">
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="brand-card p-3 text-center">
+                    <h3>Kia</h3>
+                    <img src="uploads/home/kia.png" class="img-fluid" alt="Logo Kia">
+                </div>
+            </div>
+            
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="brand-card p-3 text-center">
+                    <h3>Nissan</h3>
+                    <img src="uploads/home/nissan.webp" class="img-fluid" alt="Logo Nissan">
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

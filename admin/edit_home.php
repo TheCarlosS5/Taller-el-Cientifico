@@ -3,6 +3,7 @@ $page_title = "Editar Página de Inicio";
 include 'admin_header.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // ... (La lógica de actualización se mantiene igual, ya funciona para el nuevo campo)
     $message = '';
     $error = false;
     
@@ -11,9 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['content']) && is_array($_POST['content'])) {
         foreach ($_POST['content'] as $id => $value) {
             $id = intval($id);
-            
             $type = isset($_POST['content_type'][$id]) ? $_POST['content_type'][$id] : 'text';
-
             $sanitized_value = ($type == 'textarea') ? $value : htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
             
             $stmt->bind_param("si", $sanitized_value, $id);
@@ -24,9 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
-
     if (!$error) {
-        $message = "<div class='alert alert-success'>¡Contenido de la página de inicio actualizado correctamente!</div>";
+        $message = "<div class='alert alert-success'>¡Contenido de la página de inicio actualizado!</div>";
     }
 }
 
@@ -36,7 +34,7 @@ $contents = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <h1 class="mb-4"><?php echo $page_title; ?></h1>
-<p>Desde aquí puedes cambiar los textos que aparecen en las diferentes secciones de la página de inicio.</p>
+<p>Desde aquí puedes cambiar los textos e imágenes que aparecen en la página de inicio.</p>
 
 <?php if (isset($message)) { echo $message; } ?>
 
@@ -61,10 +59,11 @@ $contents = $result->fetch_all(MYSQLI_ASSOC);
                     
                     <?php if ($item['tipo'] == 'textarea'): ?>
                         <textarea class="form-control" id="content_<?php echo $item['id']; ?>" name="content[<?php echo $item['id']; ?>]" rows="5"><?php echo htmlspecialchars($item['valor']); ?></textarea>
+                    <?php elseif ($item['tipo'] == 'url'): ?>
+                        <input type="url" class="form-control" id="content_<?php echo $item['id']; ?>" name="content[<?php echo $item['id']; ?>]" value="<?php echo htmlspecialchars($item['valor']); ?>" placeholder="https://ejemplo.com/imagen.jpg">
                     <?php else: ?>
                         <input type="<?php echo $item['tipo']; ?>" class="form-control" id="content_<?php echo $item['id']; ?>" name="content[<?php echo $item['id']; ?>]" value="<?php echo htmlspecialchars($item['valor']); ?>">
                     <?php endif; ?>
-
                 </div>
             <?php endforeach; ?>
 
@@ -74,4 +73,3 @@ $contents = $result->fetch_all(MYSQLI_ASSOC);
 </div>
 
 <?php include 'admin_footer.php'; ?>
-

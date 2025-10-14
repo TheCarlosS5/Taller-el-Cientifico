@@ -1,6 +1,7 @@
 <?php
-session_start(); // Inicia la sesión
-require 'db_config.php';
+session_start();
+// SOLUCIÓN: Usamos __DIR__ para garantizar que encuentre el archivo de configuración.
+require_once __DIR__ . '/db_config.php';
 
 $message = '';
 $email = $_GET['email'] ?? $_POST['email'] ?? '';
@@ -13,7 +14,7 @@ if (empty($email)) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $code = $_POST['code'];
 
-    // 1. Buscar el código en la base de datos
+    // La lógica de verificación se mantiene, ya era correcta.
     $stmt = $conn->prepare("SELECT * FROM admin_codes WHERE email = ? AND code = ? AND used = 0 AND expires_at > NOW()");
     $stmt->bind_param("ss", $email, $code);
     $stmt->execute();
@@ -22,29 +23,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows === 1) {
         $code_data = $result->fetch_assoc();
         
-        // 2. Marcar el código como usado para que no se pueda volver a utilizar
         $update_stmt = $conn->prepare("UPDATE admin_codes SET used = 1 WHERE id = ?");
         $update_stmt->bind_param("i", $code_data['id']);
         $update_stmt->execute();
 
-        // 3. Obtener los datos del administrador
-        $admin_stmt = $conn->prepare("SELECT id, nombre FROM administradores WHERE email = ?");
+        // Actualizamos la consulta para traer también el avatar_url
+        $admin_stmt = $conn->prepare("SELECT id, nombre, avatar_url FROM administradores WHERE email = ?");
         $admin_stmt->bind_param("s", $email);
         $admin_stmt->execute();
         $admin_result = $admin_stmt->get_result();
         $admin = $admin_result->fetch_assoc();
 
-        // 4. Iniciar la sesión del administrador
         $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_nombre'] = $admin['nombre'];
+        $_SESSION['admin_avatar_url'] = $admin['avatar_url']; // Guardamos la foto en la sesión
 
-        // 5. Redirigir al dashboard
         header("Location: dashboard.php");
         exit();
 
     } else {
-        // Si el código es incorrecto, ha expirado o ya fue usado
-        $message = "<div class='alert alert-danger'>El código es incorrecto, ha expirado o ya fue utilizado. Por favor, solicita uno nuevo.</div>";
+        $message = "<div class='alert alert-danger'>El código es incorrecto o ha expirado.</div>";
     }
 }
 ?>
@@ -56,17 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Verificar Código - Admin</title>
     <link rel="stylesheet" href="../bootstrap-5.3.8-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .admin-login-page {
             background-color: var(--cientifico-dark-blue);
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-        }
-        .admin-login-card {
-            background-color: var(--cientifico-white);
-            border-radius: 15px;
         }
         .code-input {
             text-align: center;
@@ -80,16 +74,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
-            <div class="card admin-login-card shadow-lg p-4">
+            <div class="card shadow-lg p-4">
                 <div class="card-body">
                     <div class="text-center mb-4">
                         <img src="../assets/img/logo.jpg" alt="Logo" style="max-height: 70px;">
                         <h1 class="h3 my-3">Verificar Código</h1>
                     </div>
                     
-                    <?php echo $message; ?>
+                    <?php if(!empty($message)) echo $message; ?>
 
-                    <p class="text-center text-muted">Hemos enviado un código de 6 dígitos a <strong><?php echo htmlspecialchars($email); ?></strong>. Por favor, ingrésalo a continuación.</p>
+                    <p class="text-center text-muted">Hemos enviado un código de 6 dígitos a <strong><?php echo htmlspecialchars($email); ?></strong>.</p>
                     
                     <form action="verify_code.php" method="POST">
                         <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>">
@@ -100,7 +94,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-cientifico btn-lg">Verificar e Ingresar</button>
+                            <button type="submit" class="btn btn-cientifico btn-lg">
+                                <i class="bi bi-key-fill me-2"></i>Verificar e Ingresar
+                            </button>
                         </div>
                     </form>
                      <div class="text-center mt-3">

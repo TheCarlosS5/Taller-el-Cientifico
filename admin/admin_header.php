@@ -1,7 +1,7 @@
 <?php
-
-require 'session_handler.php'; // Protege todas las páginas que lo incluyan
-require 'db_config.php';
+// Usamos require_once para evitar errores de doble inclusión.
+require_once 'session_handler.php';
+require_once 'db_config.php';
 
 // Obtenemos el nombre del script actual para marcar el enlace activo
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -38,12 +38,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <li class="nav-item-header px-3 mt-3">GESTIÓN</li>
                     <li class="nav-item">
                         <a href="view_cotizaciones.php" class="nav-link <?php echo ($current_page == 'view_cotizaciones.php') ? 'active' : ''; ?>">
-                            <i class="bi bi-file-earmark-text-fill me-3"></i>Gestionar Cotizaciones
+                            <i class="bi bi-file-earmark-text-fill me-3"></i>Cotizaciones
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="view_usuarios.php" class="nav-link <?php echo ($current_page == 'view_usuarios.php') ? 'active' : ''; ?>">
-                            <i class="bi bi-people-fill me-3"></i>Gestionar Usuarios
+                            <i class="bi bi-people-fill me-3"></i>Usuarios
                         </a>
                     </li>
 
@@ -77,16 +77,26 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     </li>
                 </ul>
             </div>
+            
             <div class="sidebar-footer">
-                <div class="user-info">
-                    <i class="bi bi-person-circle"></i>
-                    <span class="user-name"><?php echo htmlspecialchars($_SESSION['admin_nombre']); ?></span>
-                </div>
-                <a href="logout.php" class="btn btn-logout w-100">
+                <a href="edit_admin_profile.php" class="sidebar-profile-link">
+                    <div class="d-flex align-items-center">
+                        <?php if (!empty($_SESSION['admin_avatar_url'])): ?>
+                            <img src="../<?php echo htmlspecialchars($_SESSION['admin_avatar_url']); ?>" ... class="sidebar-avatar">
+                        <?php else: ?>
+                            <div class="sidebar-initials">
+                                <?php echo strtoupper(substr($_SESSION['admin_nombre'], 0, 1)); ?>
+                            </div>
+                        <?php endif; ?>
+                        <span class="ms-2 user-name"><?php echo htmlspecialchars($_SESSION['admin_nombre']); ?></span>
+                    </div>
+                </a>
+                <a href="logout.php" class="btn btn-logout w-100 mt-3">
                     <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
                 </a>
             </div>
         </aside>
-
+        
         <div class="main-content">
             <main class="container-fluid">
+

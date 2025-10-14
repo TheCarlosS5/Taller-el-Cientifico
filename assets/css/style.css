@@ -556,3 +556,442 @@ body.admin-page {
 .fun-fact-card .card-text {
     color: #495057;
 }
+
+/* --- Estilos para Foto de Perfil / Inicial --- */
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--cientifico-yellow);
+}
+
+.user-initial {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--cientifico-yellow);
+    color: var(--cientifico-dark-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Para la barra lateral del admin */
+.sidebar-footer .user-avatar {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+}
+
+.sidebar-footer .user-initial {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+/* Vista previa en la página de editar perfil */
+.avatar-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #dee2e6;
+}
+
+.avatar-preview-initial {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+}
+
+/* --- Estilos para las nuevas tarjetas de servicio con imágenes --- */
+.services-page-background {
+    background-color: var(--cientifico-dark-blue);
+}
+
+.service-card-v2 {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+.service-card-v2:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+}
+
+.service-card-img {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* --- Estilos para la vista previa de imagen en el panel de admin --- */
+.service-img-preview {
+    max-height: 100px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* --- Estilos para la imagen de la sección "Sobre Nosotros" --- */
+.about-section-image {
+    transition: transform 0.4s ease-in-out;
+}
+
+.about-section-image:hover {
+    transform: scale(1.03);
+}
+
+/* --- Estilos para las pestañas de la página de Login --- */
+.login-form-card .nav-tabs {
+    border-bottom: none;
+    padding: 0;
+}
+
+.login-form-card .nav-tabs .nav-link {
+    border: none;
+    border-radius: 0;
+    padding: 1rem;
+    color: var(--cientifico-dark-blue);
+    background-color: #e9ecef;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.login-form-card .nav-tabs .nav-link.active {
+    background-color: var(--cientifico-white);
+    color: var(--cientifico-dark-blue);
+    font-weight: bold;
+    border-bottom: 3px solid var(--cientifico-yellow);
+}
+
+.login-form-card .nav-tabs .nav-item:first-child .nav-link {
+    border-top-left-radius: 15px;
+}
+
+.login-form-card .nav-tabs .nav-item:last-child .nav-link {
+    border-top-right-radius: 15px;
+}
+
+/* Elimina el borde de la tarjeta para que las pestañas se integren */
+.login-form-card {
+    padding: 0;
+    overflow: hidden; /* Importante para que los bordes redondeados se apliquen */
+}
+
+/* --- Panel de Administración con Sidebar (V2 - Moderno) --- */
+body.admin-page {
+    background-color: #f8f9fa;
+}
+
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: var(--cientifico-dark-blue);
+    color: #fff;
+    position: fixed; /* Lo dejamos fijo en la pantalla */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Ocupa toda la altura */
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0px 15px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-header .admin-logo {
+    max-height: 50px;
+    margin-bottom: 0.5rem;
+}
+.sidebar-header h5 {
+    color: var(--cientifico-yellow);
+    margin: 0;
+    font-weight: 700;
+}
+.sidebar-sticky {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-top: 1rem;
+}
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 12px 24px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    margin: 4px 0;
+    border-radius: 0 50px 50px 0;
+}
+.sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--cientifico-white);
+    border-left-color: var(--cientifico-yellow);
+}
+.sidebar .nav-link.active {
+    background-color: var(--cientifico-yellow);
+    color: var(--cientifico-dark-blue) !important;
+    font-weight: bold;
+    border-left-color: var(--cientifico-yellow);
+}
+.sidebar .nav-link .bi {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+.sidebar .nav-link:hover .bi, .sidebar .nav-link.active .bi {
+    transform: scale(1.1);
+}
+.sidebar .nav-item-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/* --- Main Content (Contenido Principal) --- */
+/* SOLUCIÓN: Añadimos un margen a la izquierda del mismo ancho que el sidebar */
+.main-content {
+    margin-left: 280px;
+    padding: 2.5rem;
+    width: calc(100% - 280px); /* Ocupa el resto del ancho */
+}
+.main-content h1 {
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 0.5rem;
+}
+
+/* PERFIL DEL ADMIN */
+.profile-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--cientifico-white);
+    transition: background-color 0.3s ease;
+}
+
+.profile-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--cientifico-white);
+}
+
+.profile-link-text small {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+}
+
+.btn-logout {
+    background-color: rgba(251, 193, 8, 0.2);
+    border: 1px solid var(--cientifico-yellow);
+    color: var(--cientifico-yellow);
+}
+.btn-logout:hover {
+    background-color: var(--cientifico-yellow);
+    color: var(--cientifico-dark-blue);
+    font-weight: bold;
+}
+
+/* --- Estilos para Modal de Confirmación de Vaciado de Logs --- */
+.modal-confirm-danger .modal-content {
+    border: 2px solid #dc3545; /* Borde rojo peligro */
+    border-radius: 15px;
+}
+
+.modal-confirm-danger .modal-header {
+    background-color: #dc3545;
+    color: white;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+}
+
+.modal-confirm-danger .modal-header .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.modal-confirm-danger .warning-icon {
+    font-size: 4rem;
+    color: #dc3545;
+    animation: pulse-warning 1.5s infinite;
+}
+
+.modal-confirm-danger .captcha-code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    padding: 10px;
+    background-color: #f8d7da; /* Fondo rojo claro */
+    color: #58151c; /* Texto rojo oscuro */
+    border: 1px dashed #f5c2c7;
+    border-radius: 8px;
+    user-select: none; /* Evita que se pueda seleccionar el texto */
+}
+
+/* Animación para el icono de advertencia */
+@keyframes pulse-warning {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+
+/* ... (todo tu CSS anterior) ... */
+
+/* --- Estilos para la Paginación --- */
+.pagination .page-link {
+    color: var(--cientifico-dark-blue);
+    border: 1px solid #dee2e6;
+}
+.pagination .page-link:hover {
+    background-color: #e9ecef;
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--cientifico-dark-blue);
+    border-color: var(--cientifico-dark-blue);
+    color: white;
+}
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+
+/* --- Estilos para Modal de Confirmación de Vaciado de Logs --- */
+.modal-confirm-danger .modal-content {
+    border: 2px solid #dc3545; /* Borde rojo peligro */
+    border-radius: 15px;
+}
+.modal-confirm-danger .modal-header {
+    background-color: #dc3545;
+    color: white;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+}
+.modal-confirm-danger .modal-header .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+.modal-confirm-danger .warning-icon {
+    font-size: 4rem;
+    color: #dc3545;
+    animation: pulse-warning 1.5s infinite;
+}
+.modal-confirm-danger .captcha-code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    padding: 10px;
+    background-color: #f8d7da; /* Fondo rojo claro */
+    color: #58151c; /* Texto rojo oscuro */
+    border: 1px dashed #f5c2c7;
+    border-radius: 8px;
+    user-select: none; /* Evita que se pueda seleccionar el texto */
+}
+
+/* Animación para el icono de advertencia */
+@keyframes pulse-warning {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+/* ... (todo tu CSS anterior) ... */
+
+/* --- SOLUCIÓN: Reemplazar las reglas del footer del sidebar con estas --- */
+.sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-profile-link {
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-profile-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--cientifico-yellow);
+}
+
+.sidebar-initials {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--cientifico-yellow);
+    color: var(--cientifico-dark-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.sidebar-footer .user-name {
+    color: #fff;
+    font-weight: 500;
+}
+
+.btn-logout {
+    background-color: rgba(251, 193, 8, 0.2);
+    border: 1px solid var(--cientifico-yellow);
+    color: var(--cientifico-yellow);
+}
+
+.btn-logout:hover {
+    background-color: var(--cientifico-yellow);
+    color: var(--cientifico-dark-blue);
+}
+

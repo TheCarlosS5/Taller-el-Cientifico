@@ -23,11 +23,11 @@ include 'includes/header.php';
         <div class="card shadow-lg location-card">
             <div class="row g-0">
                 <div class="col-lg-6">
-                    <!-- Usaremos un placeholder para la imagen del taller -->
-                    <img src="https://placehold.co/600x450/333/FFF?text=Taller+El+Científico" class="img-fluid rounded-start h-100" alt="Foto del Taller" style="object-fit: cover;">
+                    <!-- Usamos la imagen desde la base de datos -->
+                    <img src="<?php echo htmlspecialchars($ubicacion_content['imagen_url'] ?? 'https://placehold.co/800x600/0d2c4f/fbc108?text=Taller'); ?>" class="img-fluid rounded-start h-100" alt="Foto del Taller" style="object-fit: cover;">
                 </div>
                 <div class="col-lg-6 d-flex align-items-center">
-                    <div class="card-body">
+                    <div class="card-body p-4 p-lg-5">
                         <h3 class="card-title mb-4">
                             <i class="bi bi-geo-alt-fill me-2"></i> 
                             Encuéntranos
@@ -46,10 +46,9 @@ include 'includes/header.php';
 
                         <hr>
                         
-                        <p class="mt-4">
-                            <i class="bi bi-info-circle-fill me-2"></i> 
-                            <?php echo htmlspecialchars_decode($ubicacion_content['descripcion'] ?? 'No disponible'); ?>
-                        </p>
+                        <div class="mt-4">
+                           <?php echo !empty($ubicacion_content['descripcion']) ? '<p><i class="bi bi-info-circle-fill me-2"></i>' . nl2br(htmlspecialchars($ubicacion_content['descripcion'])) . '</p>' : ''; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -57,11 +56,9 @@ include 'includes/header.php';
 
          <!-- Mapa de Google -->
         <div class="map-container mt-5 shadow">
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.45785023908!2d-75.2974246852427!3d2.973887197834018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b7596a775a6a3%3A0x6b359f131508985c!2sCampoalegre%2C%20Huila!5e0!3m2!1ses!2sco!4v1664057195511!5m2!1ses!2sco" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.45785023908!2d-75.2974246852427!3d2.973887197834018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b7596a775a6a3%3A0x6b359f131508985c!2sCampoalegre%2C%2C%20Huila!5e0!3m2!1ses!2sco!4v1664057195511!5m2!1ses!2sco" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </div>
 
 <?php include 'includes/footer.php'; ?>
-
-
