@@ -1,11 +1,12 @@
 <?php 
-// 1. Conectar a la DB y obtener info de contacto
+// --- CAMBIO 1: MODIFICAR LA CONSULTA SQL ---
+// Ahora pide los datos de 'contacto' Y los campos 'direccion' y 'barrio' de 'ubicacion'
 require 'admin/db_config.php';
-$sql = "SELECT campo, valor FROM contenido_editable WHERE seccion = 'contacto'";
+$sql = "SELECT campo, valor FROM contenido_editable WHERE seccion = 'contacto' OR (seccion = 'ubicacion' AND campo IN ('direccion', 'barrio'))";
 $result = $conn->query($sql);
-$contact_content = [];
+$content = [];
 while($row = $result->fetch_assoc()) {
-    $contact_content[$row['campo']] = $row['valor'];
+    $content[$row['campo']] = $row['valor'];
 }
 $conn->close();
 
@@ -21,7 +22,6 @@ include 'includes/header.php';
         </div>
 
         <div class="row g-5">
-            <!-- Columna de Información de Contacto -->
             <div class="col-lg-5">
                 <div class="contact-info-card h-100 p-4">
                     <h3 class="mb-4">Información de Contacto</h3>
@@ -30,7 +30,8 @@ include 'includes/header.php';
                         <i class="bi bi-geo-alt-fill me-3"></i>
                         <div>
                             <strong>Dirección</strong><br>
-                            Carrera 13a #14-46, Barrio Los Molinos, Campoalegre, Huila.
+                            <?php echo htmlspecialchars($content['direccion'] ?? 'Dirección no disponible'); ?>, 
+                            Barrio <?php echo htmlspecialchars($content['barrio'] ?? ''); ?>, Campoalegre, Huila.
                         </div>
                     </div>
 
@@ -38,7 +39,7 @@ include 'includes/header.php';
                         <i class="bi bi-telephone-fill me-3"></i>
                         <div>
                             <strong>Teléfono</strong><br>
-                            <a href="tel:<?php echo htmlspecialchars($contact_content['telefono'] ?? ''); ?>"><?php echo htmlspecialchars($contact_content['telefono'] ?? 'No disponible'); ?></a>
+                            <a href="tel:<?php echo htmlspecialchars($content['telefono'] ?? ''); ?>"><?php echo htmlspecialchars($content['telefono'] ?? 'No disponible'); ?></a>
                         </div>
                     </div>
 
@@ -46,7 +47,7 @@ include 'includes/header.php';
                         <i class="bi bi-envelope-fill me-3"></i>
                         <div>
                             <strong>Email</strong><br>
-                             <a href="mailto:<?php echo htmlspecialchars($contact_content['email'] ?? ''); ?>"><?php echo htmlspecialchars($contact_content['email'] ?? 'No disponible'); ?></a>
+                             <a href="mailto:<?php echo htmlspecialchars($content['email'] ?? ''); ?>"><?php echo htmlspecialchars($content['email'] ?? 'No disponible'); ?></a>
                         </div>
                     </div>
 
@@ -54,13 +55,12 @@ include 'includes/header.php';
                         <i class="bi bi-whatsapp me-3"></i>
                         <div>
                             <strong>WhatsApp</strong><br>
-                            <a href="https://wa.me/<?php echo htmlspecialchars($contact_content['whatsapp'] ?? ''); ?>" target="_blank"><?php echo htmlspecialchars($contact_content['telefono'] ?? 'No disponible'); ?></a>
+                            <a href="https://wa.me/<?php echo htmlspecialchars($content['whatsapp'] ?? ''); ?>" target="_blank"><?php echo htmlspecialchars($content['telefono'] ?? 'No disponible'); ?></a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Columna del Formulario -->
             <div class="col-lg-7">
                  <div class="contact-form-card h-100 p-4">
                     <h3 class="mb-4">Envíanos un Mensaje</h3>
@@ -92,4 +92,3 @@ include 'includes/header.php';
 </div>
 
 <?php include 'includes/footer.php'; ?>
-

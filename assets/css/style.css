@@ -995,3 +995,11 @@ body.admin-page {
     color: var(--cientifico-dark-blue);
 }
 
+/* --- Estilos para la sección Hero mejorada --- */
+.hero-section .stats-container .stat-item i {
+    font-size: 2.5rem;
+    color: var(--cientifico-yellow);
+    margin-bottom: 0.5rem;
+    display: block; /* Asegura que el ícono ocupe su propia línea */
+}
+

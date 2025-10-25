@@ -99,9 +99,6 @@ $stmt->close();
     <li class="nav-item" role="presentation">
         <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Mi Información</button>
     </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab" aria-controls="password" aria-selected="false">Cambiar Contraseña</button>
-    </li>
 </ul>
 
 <div class="tab-content card">
@@ -126,7 +123,7 @@ $stmt->close();
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($admin_data['email']); ?>" required>
+                            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($admin_data['email']); ?>" readonly>
                         </div>
                     </div>
                      <div class="mb-3">
@@ -151,33 +148,6 @@ $stmt->close();
 
             <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
         </form>
-    </div>
-
-    <!-- Panel de Cambiar Contraseña -->
-    <div class="tab-pane fade p-4" id="password" role="tabpanel" aria-labelledby="password-tab">
-         <h4 class="mb-3">Actualizar Contraseña</h4>
-
-             <?php if($password_message): ?>
-                <div class="alert alert-<?php echo $password_alert_type; ?>"><?php echo $password_message; ?></div>
-            <?php endif; ?>
-
-            <form method="POST" action="edit_admin_profile.php">
-                <input type="hidden" name="change_password" value="1">
-                <div class="mb-3">
-                    <label for="current_password" class="form-label">Contraseña Actual</label>
-                    <input type="password" class="form-control" id="current_password" name="current_password" required>
-                    <div class="form-text">Esta funcionalidad no está implementada ya que no guardamos la contraseña actual.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="new_password" class="form-label">Nueva Contraseña</label>
-                    <input type="password" class="form-control" id="new_password" name="new_password" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="confirm_password" class="form-label">Confirmar Nueva Contraseña</label>
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" disabled>
-                </div>
-                <button type="submit" class="btn btn-primary" disabled>Cambiar Contraseña</button>
-            </form>
     </div>
 </div>
 

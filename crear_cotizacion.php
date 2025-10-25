@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $numero_taller = WHATSAPP_TALLER;
             $fecha_hora = date('d/m/Y H:i:s');
 
-            $mensaje_whatsapp = "*¡Nueva Cotización Detallada!* %0A%0A";
+            $mensaje_whatsapp = "*¡Nueva Cotización!* %0A%0A";
             $mensaje_whatsapp .= "*Cliente:* " . urlencode($user_nombre_completo) . "%0A";
             $mensaje_whatsapp .= "*Contacto:* " . urlencode($user_telefono) . " | " . urlencode($user_email) . "%0A";
             $mensaje_whatsapp .= "*Fecha:* " . urlencode($fecha_hora) . "%0A%0A";
@@ -150,10 +150,6 @@ include 'includes/header.php';
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="tipo_vehiculo" id="tipo_carro" value="carro" checked>
                             <label class="form-check-label" for="tipo_carro">Carro</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipo_vehiculo" id="tipo_moto" value="moto">
-                            <label class="form-check-label" for="tipo_moto">Moto</label>
                         </div>
                     </div>
                 </div>

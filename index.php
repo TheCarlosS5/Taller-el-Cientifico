@@ -80,93 +80,35 @@ $conn->close();
 
 ?>
 
-<!-- Hero Section -->
+<!-- Hero Section (ESTRUCTURA CORREGIDA) -->
 <section class="hero-section text-white d-flex align-items-center">
     <div class="container">
-        <div class="row align-items-center">
-            <!-- Columna de Texto -->
-            <div class="col-lg-7 mb-4 mb-lg-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
                 <h1 class="display-3 fw-bold">
                     <?php echo htmlspecialchars($home_content['titulo_principal'] ?? 'Título no encontrado'); ?>
                 </h1>
-                <div class="lead my-4">
+                <div class="lead my-4 col-lg-8 mx-auto">
                     <?php echo htmlspecialchars_decode($home_content['subtitulo'] ?? 'Subtítulo no encontrado'); ?>
                 </div>
-                <div class="d-flex stats-container">
-                    <div class="stat-item me-5">
-                        <i class="bi bi-car-front-fill me-2"></i>
-                        <span class="fw-bold fs-5"><?php echo number_format($home_content['vehiculos_atendidos'] ?? 0); ?></span><br>
-                        Vehículos atendidos
+                <div class="d-flex justify-content-center stats-container mt-5">
+                    <div class="stat-item mx-4 text-center">
+                        <i class="bi bi-car-front-fill"></i>
+                        <div class="fs-4 fw-bold"><?php echo number_format($home_content['vehiculos_atendidos'] ?? 0); ?></div>
+                        <div>Vehículos atendidos</div>
                     </div>
-                    <div class="stat-item">
-                        <i class="bi bi-tools me-2"></i>
-                        <span class="fw-bold fs-5">+<?php echo htmlspecialchars($home_content['talleres_aliados'] ?? 0); ?></span><br>
-                        Talleres aliados
+                    <div class="stat-item mx-4 text-center">
+                        <i class="bi bi-tools"></i>
+                        <div class="fs-4 fw-bold">+<?php echo htmlspecialchars($home_content['talleres_aliados'] ?? 0); ?></div>
+                        <div>Talleres aliados</div>
                     </div>
-                </div>
-            </div>
-            <!-- Columna de Cotización -->
-            <div class="col-lg-5">
-                <div class="card quote-card p-4">
-                    <h3 class="text-center mb-4">Cotiza los servicios para tu vehículo</h3>
-                    
-                    <?php 
-                    if (isset($_SESSION['success_message'])) {
-                        echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
-                        unset($_SESSION['success_message']);
-                    }
-                    if (isset($_SESSION['form_errors'])) {
-                        echo '<div class="alert alert-danger"><ul>';
-                        foreach ($_SESSION['form_errors'] as $error) {
-                            echo '<li>' . htmlspecialchars($error) . '</li>';
-                        }
-                        echo '</ul></div>';
-                        unset($_SESSION['form_errors']);
-                    }
-                    ?>
-
-                    <form action="index.php" method="POST">
-                        <input type="hidden" name="cotizar" value="1">
-                        
-                        <?php if (!isset($_SESSION['user_id'])): ?>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="nombre_cliente" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="telefono_cliente" class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono_cliente" name="telefono_cliente" required>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-
-                        <div class="mb-3">
-                            <label for="ciudad" class="form-label">Ciudad</label>
-                            <select class="form-select" id="ciudad" name="ciudad" required>
-                                <option selected disabled value="">Selecciona tu ciudad</option>
-                                <option value="Campoalegre">Campoalegre</option>
-                                <option value="Neiva">Neiva</option>
-                                <option value="Bogotá">Bogotá</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="marca" class="form-label">Marca</label>
-                            <input type="text" class="form-control" id="marca" name="marca" placeholder="Ej: Toyota" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modelo" class="form-label">Modelo</label>
-                            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ej: Corolla" required>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-cientifico btn-lg">Cotizar Servicios</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
 
 <!-- Sección "Sobre Nosotros" (ACTUALIZADA) -->
 <section class="about-section py-5">
@@ -270,6 +212,71 @@ $conn->close();
                 </div>
             </div>
 
+        </div>
+    </div>
+</section>
+
+
+<!-- NUEVA SECCIÓN DE COTIZACIÓN -->
+<section id="form-cotizacion" class="quote-form-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card quote-card p-4 p-md-5">
+                    <h2 class="text-center mb-4">Cotiza los servicios para tu vehículo</h2>
+                    
+                    <?php 
+                    if (isset($_SESSION['success_message'])) {
+                        echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
+                        unset($_SESSION['success_message']);
+                    }
+                    if (isset($_SESSION['form_errors'])) {
+                        echo '<div class="alert alert-danger"><ul>';
+                        foreach ($_SESSION['form_errors'] as $error) {
+                            echo '<li>' . htmlspecialchars($error) . '</li>';
+                        }
+                        echo '</ul></div>';
+                        unset($_SESSION['form_errors']);
+                    }
+                    ?>
+
+                    <form action="index.php#form-cotizacion" method="POST">
+                        <input type="hidden" name="cotizar" value="1">
+                        
+                        <?php if (!isset($_SESSION['user_id'])): ?>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre_cliente" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="telefono_cliente" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono_cliente" name="telefono_cliente" required>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <div class="mb-3">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <select class="form-select" id="ciudad" name="ciudad" required>
+                                <option selected disabled value="">Selecciona tu ciudad</option>
+                                <option value="Campoalegre">Campoalegre</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="marca" class="form-label">Marca</label>
+                            <input type="text" class="form-control" id="marca" name="marca" placeholder="Ej: Toyota" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modelo" class="form-label">Modelo</label>
+                            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ej: Corolla" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-cientifico btn-lg">Cotizar Servicios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </section>

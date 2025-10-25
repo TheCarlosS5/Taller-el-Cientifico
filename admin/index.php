@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // Definimos el correo del administrador aquí para no tener que escribirlo en el formulario.
-define('ADMIN_EMAIL', 'carlosstivengutierrezramirez@gmail.com');
+define('ADMIN_EMAIL', 'carlosstivengutierrez0@gmail.com');
 
 $message = '';
 

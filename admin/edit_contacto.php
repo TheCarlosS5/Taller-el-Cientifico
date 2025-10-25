@@ -1,6 +1,8 @@
-<?php 
+<?php
 $page_title = "Editar Página de Contacto";
 include 'admin_header.php';
+require_once 'db_config.php'; // Asegúrate de tener la conexión a la BD
+require_once 'functions.php'; // Y las funciones necesarias
 
 // Lógica para procesar el formulario cuando se envía
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -25,19 +27,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (!$error) {
+        log_activity($conn, $_SESSION['admin_id'], 'Actualización de Contenido', "Se guardaron cambios en la Página de Contacto.");
         $message = "<div class='alert alert-success'>¡Información de contacto actualizada correctamente!</div>";
     }
 }
 
+// --- ÚNICO CAMBIO AQUÍ ---
 // Lógica para obtener el contenido actual de la base de datos
-$sql = "SELECT id, campo, valor, descripcion FROM contenido_editable WHERE seccion = 'contacto' ORDER BY orden";
+// Ahora la consulta trae los campos de 'contacto' Y los campos 'direccion' y 'barrio' de la sección 'ubicacion'
+$sql = "
+    SELECT id, campo, valor, descripcion, tipo 
+    FROM contenido_editable 
+    WHERE seccion = 'contacto' OR (seccion = 'ubicacion' AND campo IN ('direccion', 'barrio'))
+    ORDER BY FIELD(campo, 'direccion', 'barrio', 'telefono', 'email', 'whatsapp')
+";
 $result = $conn->query($sql);
 $contents = $result->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
 <h1 class="mb-4"><?php echo $page_title; ?></h1>
-<p>Desde aquí puedes cambiar los datos de contacto que se muestran en la página.</p>
+<p>Desde aquí puedes cambiar los datos de contacto y la dirección que se muestran en la página.</p>
 
 <?php if (isset($message)) { echo $message; } ?>
 
@@ -52,7 +62,12 @@ $contents = $result->fetch_all(MYSQLI_ASSOC);
                             <small class="text-muted d-block"><?php echo htmlspecialchars($item['descripcion']); ?></small>
                         <?php endif; ?>
                     </label>
-                    <input type="text" class="form-control" id="content-<?php echo $item['id']; ?>" name="content[<?php echo $item['id']; ?>]" value="<?php echo htmlspecialchars($item['valor']); ?>">
+                    
+                    <?php if (isset($item['tipo']) && $item['tipo'] == 'textarea'): ?>
+                        <textarea class="form-control" id="content-<?php echo $item['id']; ?>" name="content[<?php echo $item['id']; ?>]" rows="3"><?php echo htmlspecialchars($item['valor']); ?></textarea>
+                    <?php else: ?>
+                        <input type="text" class="form-control" id="content-<?php echo $item['id']; ?>" name="content[<?php echo $item['id']; ?>]" value="<?php echo htmlspecialchars($item['valor']); ?>">
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
 

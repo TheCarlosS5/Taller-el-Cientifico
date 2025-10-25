@@ -4,18 +4,22 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+
 require 'admin/db_config.php';
 $user_id = $_SESSION['user_id'];
 
+// Variables para los mensajes de alerta
 $profile_message = '';
 $profile_alert_type = '';
+$password_message = '';
+$password_alert_type = '';
 
-// LÓGICA PARA ACTUALIZAR DATOS DEL PERFIL
+// --- LÓGICA PARA ACTUALIZAR DATOS DEL PERFIL ---
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $nombre = trim($_POST['nombre']);
     $apellido = trim($_POST['apellido']);
     $telefono = trim($_POST['telefono']);
-    $avatar_url = trim($_POST['avatar_url']); // Nuevo campo
+    $avatar_url = trim($_POST['avatar_url']);
 
     if (!empty($avatar_url) && !filter_var($avatar_url, FILTER_VALIDATE_URL)) {
         $profile_message = "La URL de la imagen no es válida.";
@@ -27,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         if($stmt->execute()){
             $profile_message = "¡Tus datos han sido actualizados correctamente!";
             $profile_alert_type = "success";
+            // Actualizar datos de la sesión para reflejar los cambios al instante
             $_SESSION['user_nombre_completo'] = trim($nombre . ' ' . $apellido);
             $_SESSION['user_avatar_url'] = $avatar_url;
         } else {
@@ -36,8 +41,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         $stmt->close();
     }
 }
-//... (lógica de cambio de contraseña sin cambios)
 
+// --- NUEVA LÓGICA PARA CAMBIAR LA CONTRASEÑA ---
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_password'])) {
+    $current_password = $_POST['current_password'];
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
+
+    // 1. Validar que las contraseñas nuevas coincidan
+    if ($new_password !== $confirm_password) {
+        $password_message = "Las contraseñas nuevas no coinciden.";
+        $password_alert_type = "danger";
+    }
+    // 2. Validar longitud mínima de la nueva contraseña
+    elseif (strlen($new_password) < 8) {
+        $password_message = "La nueva contraseña debe tener al menos 8 caracteres.";
+        $password_alert_type = "danger";
+    } else {
+        // 3. Verificar la contraseña actual del usuario
+        $stmt = $conn->prepare("SELECT password_hash FROM usuarios WHERE id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+
+        if ($user && password_verify($current_password, $user['password_hash'])) {
+            // Contraseña actual es correcta, proceder a actualizar
+            $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+
+            $update_stmt = $conn->prepare("UPDATE usuarios SET password_hash = ? WHERE id = ?");
+            $update_stmt->bind_param("si", $new_password_hash, $user_id);
+
+            if ($update_stmt->execute()) {
+                $password_message = "¡Contraseña actualizada correctamente!";
+                $password_alert_type = "success";
+            } else {
+                $password_message = "Error al actualizar la contraseña en la base de datos.";
+                $password_alert_type = "danger";
+            }
+            $update_stmt->close();
+        } else {
+            // Contraseña actual incorrecta
+            $password_message = "La contraseña actual es incorrecta.";
+            $password_alert_type = "danger";
+        }
+    }
+}
+
+// Obtener datos del usuario para mostrar en los formularios
 $stmt = $conn->prepare("SELECT nombre, apellido, email, telefono, avatar_url FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -51,6 +103,7 @@ include 'includes/header.php';
 
 <div class="container py-5">
     <h1 class="display-5 mb-4">Editar Mi Perfil</h1>
+    
     <div class="card">
         <div class="card-body p-4">
             <h4 class="mb-4">Datos Personales</h4>
@@ -90,11 +143,38 @@ include 'includes/header.php';
                     <label for="email" class="form-label">Correo Electrónico (No se puede cambiar)</label>
                     <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user_data['email']); ?>" disabled readonly>
                 </div>
-                <button type="submit" class="btn btn-cientifico">Guardar Cambios</button>
+                <button type="submit" class="btn btn-cientifico">Guardar Cambios de Perfil</button>
             </form>
         </div>
     </div>
+
+    <div class="card mt-4">
+        <div class="card-body p-4">
+            <h4 class="mb-4">Cambiar Contraseña</h4>
+
+            <?php if($password_message): ?>
+                <div class="alert alert-<?php echo $password_alert_type; ?>"><?php echo $password_message; ?></div>
+            <?php endif; ?>
+
+            <form method="POST" action="editar_perfil.php">
+                <input type="hidden" name="update_password" value="1">
+                <div class="mb-3">
+                    <label for="current_password" class="form-label">Contraseña Actual</label>
+                    <input type="password" class="form-control" id="current_password" name="current_password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="new_password" class="form-label">Nueva Contraseña</label>
+                    <input type="password" class="form-control" id="new_password" name="new_password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirmar Nueva Contraseña</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Actualizar Contraseña</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <?php include 'includes/footer.php'; ?>
-
